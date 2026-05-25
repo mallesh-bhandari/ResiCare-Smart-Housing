@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gate Management | ResiCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --blue: #1e3c72; --green: #27ae60; --red: #e74c3c; }
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, var(--blue), #2a5298); padding: 30px; }
+        .card { background: white; border-radius: 12px; border-top: 5px solid #f39c12; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8f9fa; padding: 15px; text-align: left; font-size: 12px; color: #777; }
+        td { padding: 15px; border-bottom: 1px solid #f1f1f1; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: white; }
+        .in { background: var(--green); }
+        .out { background: var(--red); }
+        .btn-exit { background: #333; color: white; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-size: 11px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h3><i class="fa fa-id-badge"></i> Visitor Log (Gate Entry)</h3>
+        <button onclick="location.reload()" style="cursor:pointer; border:none; background:none; color:#3c8dbc;"><i class="fa fa-sync"></i> Refresh</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Visitor Name</th>
+                <th>Contact</th>
+                <th>Visiting Resident</th>
+                <th>Reason</th>
+                <th>Entry / Exit</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in visitors %}
+            <tr>
+                <td><strong>{{ v.visitor_name }}</strong></td>
+                <td>{{ v.phone_no }}</td>
+                <td>{{ v.resident_name }} ({{ v.flat_no }})</td>
+                <td><small>{{ v.reason }}</small></td>
+                <td>
+                    <div style="font-size: 11px;">In: {{ v.entry_time }}</div>
+                    <div style="font-size: 11px; color: #888;">Out: {{ v.exit_time or '---' }}</div>
+                </td>
+                <td><span class="badge {{ 'in' if v.status == 'In' else 'out' }}">{{ v.status }}</span></td>
+                <td>
+                    {% if v.status == 'In' %}
+                    <a href="/visitor_exit/{{ v.id }}" class="btn-exit">MARK EXIT</a>
+                    {% else %}
+                    <span style="color:#888; font-size: 11px;"><i class="fa fa-check"></i> Left</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

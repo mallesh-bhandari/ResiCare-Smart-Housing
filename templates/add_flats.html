@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Flat | ResiCare</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-purple: #6366f1;
+            --secondary-purple: #a855f7;
+            --bg-body: #f5f3ff;
+            --text-dark: #1e1b4b;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #f5f3ff 0%, #eef2ff 100%); 
+            margin: 0; 
+            padding: 40px 20px; 
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .form-box { 
+            background: white; 
+            max-width: 520px; 
+            width: 100%;
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.12); 
+            padding: 40px; 
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        /* Top Accent Bar */
+        .form-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 6px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-purple));
+            border-radius: 24px 24px 0 0;
+        }
+
+        .form-header { text-align: center; margin-bottom: 30px; }
+        .form-header h2 { 
+            color: var(--text-dark); 
+            font-size: 26px; 
+            font-weight: 800;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin: 0;
+        }
+        .form-header h2 i { color: var(--primary-purple); }
+        .form-header p { color: #6b7280; font-size: 14px; margin-top: 8px; }
+
+        .form-group { margin-bottom: 20px; }
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .input-wrapper { position: relative; }
+        .input-wrapper i {
+            position: absolute; left: 15px; top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 13px 15px 13px 45px; 
+            border: 2px solid #f3f4f6; 
+            border-radius: 14px; 
+            font-family: inherit;
+            font-size: 14px;
+            background-color: #f9fafb;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        select { appearance: none; cursor: pointer; }
+        
+        .select-wrapper::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute; right: 15px; top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: var(--primary-purple); 
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        input:focus + i { color: var(--primary-purple); }
+
+        .btn-submit { 
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-purple)); 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 14px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-weight: 700; 
+            font-size: 16px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover { 
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 15px 20px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        .footer-link {
+            display: block; text-align: center; margin-top: 25px;
+            color: #9ca3af; text-decoration: none; font-size: 13px; font-weight: 500;
+            transition: 0.2s;
+        }
+        .footer-link:hover { color: var(--primary-purple); }
+
+    </style>
+</head>
+<body>
+
+    <div class="form-box">
+        <div class="form-header">
+            <h2><i class="fa fa-building-circle-add"></i> Add New Flat</h2>
+            <p>Enter details to register a new property in the system</p>
+        </div>
+
+        <form action="/add_flats" method="POST">
+            <div class="form-group">
+                <label>Flat Number</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-hashtag"></i>
+                    <input type="text" name="flat_no" placeholder="e.g. A-101" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Floor</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-layer-group"></i>
+                    <input type="number" name="floor" placeholder="e.g. 1" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Block / Wing</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-shapes"></i>
+                    <input type="text" name="block" placeholder="e.g. A Wing" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Flat Type</label>
+                <div class="input-wrapper select-wrapper">
+                    <i class="fa fa-bed"></i>
+                    <select name="flat_type">
+                        <option value="1BHK">1 BHK (Studio/Small)</option>
+                        <option value="2BHK">2 BHK (Standard)</option>
+                        <option value="3BHK">3 BHK (Large/Premium)</option>
+                        <option value="4BHK">4 BHK (Luxury)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fa fa-plus-circle"></i> SAVE FLAT DETAILS
+            </button>
+        </form>
+
+        <a href="/dashboard" class="footer-link"><i class="fa fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

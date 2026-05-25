@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Complaints | ResiCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 30px; }
+        .container { max-width: 900px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        h2 { color: #27ae60; margin-top: 0; }
+        
+        /* Form Styling */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .btn-submit { background: #e67e22; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #eee; color: #333; }
+        .status { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .status-Pending { background: #ffeaa7; color: #d35400; }
+        .status-Resolved { background: #55efc4; color: #00b894; }
+        .btn-back { text-decoration: none; color: #27ae60; margin-bottom: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="/resident_dashboard" class="btn-back"><i class="fa fa-arrow-left"></i> Back to Dashboard</a>
+    
+    <div class="card">
+        <h2><i class="fa fa-plus-circle"></i> Raise a New Complaint</h2>
+        <form action="/my_complaints" method="POST">
+            <div class="form-group">
+                <label>Issue Category</label>
+                <select name="category" required>
+                    <option value="Plumbing">Plumbing (Tap/Pipe)</option>
+                    <option value="Electricity">Electricity (Light/Fan)</option>
+                    <option value="Cleanliness">Cleanliness (Clean)</option>
+                    <option value="Security">Security</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Problem Description</label>
+                <textarea name="description" rows="3" placeholder="Describe your issue here..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Submit Complaint</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Your Complaint History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in complaints %}
+                <tr>
+                    <td>#{{ c.id }}</td>
+                    <td><strong>{{ c.category }}</strong></td>
+                    <td>{{ c.description }}</td>
+                    <td><span class="status status-{{ c.status }}">{{ c.status }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

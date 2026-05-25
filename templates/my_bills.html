@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bills | ResiCare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --primary: #27ae60; 
+            --bg: #f4f7f6; 
+            --danger: #e74c3c; 
+            --white: #ffffff;
+            --blue: #3498db;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 40px; 
+        }
+
+        .container { 
+            max-width: 950px; 
+            margin: auto; 
+        }
+        
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 30px; 
+        }
+
+        .btn-back { 
+            text-decoration: none; 
+            color: var(--primary); 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s;
+        }
+        
+        .btn-back:hover { transform: translateX(-5px); }
+        
+        .bill-card { 
+            background: var(--white); 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            border-left: 6px solid #ccc;
+        }
+
+        .bill-card:hover { transform: scale(1.01); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        
+        .bill-info h3 { margin: 0; color: #333; font-size: 20px; }
+        .bill-info p { margin: 8px 0 0; color: #777; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        .bill-amount-section { text-align: right; }
+        .amount { font-size: 24px; font-weight: bold; color: #333; display: block; }
+        
+        .status-badge { 
+            padding: 6px 15px; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .unpaid { background: #fff5f5; color: var(--danger); border: 1px solid var(--danger); }
+        .paid { background: #f0fff4; color: var(--primary); border: 1px solid var(--primary); }
+        
+        .btn-pay { 
+            background: var(--primary); color: white; text-decoration: none; 
+            padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600;
+            margin-left: 10px; transition: 0.3s; display: inline-block;
+        }
+
+        .btn-print { 
+            background: var(--blue); color: white; border: none;
+            padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600;
+            margin-left: 10px; transition: 0.3s; cursor: pointer;
+        }
+
+        .btn-pay:hover, .btn-print:hover { opacity: 0.8; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <a href="/resident_dashboard" class="btn-back"><i class="fa fa-arrow-left"></i> Back to Dashboard</a>
+        <h2 style="margin: 0; color: #333;">My Billing History</h2>
+    </div>
+
+    {% if bills %}
+        {% for b in bills %}
+        <div class="bill-card" style="border-left-color: {% if b.status == 'Paid' %}#27ae60{% else %}#e74c3c{% endif %};">
+            <div class="bill-info">
+                <h3>{{ b.title }}</h3>
+                <p><i class="fa fa-calendar-alt"></i> Period: March 2026</p>
+                <p><i class="fa fa-file-invoice"></i> Bill ID: #RESI-{{ b.id }}</p>
+            </div>
+            
+            <div class="bill-amount-section">
+                <span class="amount">₹{{ b.amount }}</span>
+                <div style="margin-top: 15px; display: flex; align-items: center; justify-content: flex-end;">
+                    {% if b.status == 'Paid' %}
+                        <span class="status-badge paid">PAID</span>
+                        <button class="btn-print" onclick="printDetailedBill('{{ b.id }}', '{{ b.amount }}')">
+                            <i class="fa fa-print"></i> Print
+                        </button>
+                    {% else %}
+                        <span class="status-badge unpaid">UNPAID</span>
+                        <a href="{{ url_for('resident_pay_bill', id=b.id) }}" class="btn-pay">Pay Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div style="text-align:center; padding:50px;"><h3>No Bills Found</h3></div>
+    {% endif %}
+</div>
+
+<script>
+function printDetailedBill(id, totalAmount) {
+    var printWindow = window.open('', '', 'height=750,width=900');
+    printWindow.document.write('<html><head><title>Maintenance Receipt - ResiCare</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: sans-serif; padding: 40px; color: #333; line-height: 1.6; }');
+    printWindow.document.write('.receipt-box { border: 1px solid #ccc; padding: 40px; max-width: 600px; margin: auto; background: #fff; }');
+    printWindow.document.write('.header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }');
+    printWindow.document.write('.header h2 { margin: 0; letter-spacing: 2px; }');
+    printWindow.document.write('.info-section { margin-bottom: 30px; display: flex; flex-direction: column; gap: 5px; }');
+    printWindow.document.write('.details-table { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+    printWindow.document.write('.details-table td { padding: 12px 0; border-bottom: 1px solid #eee; }');
+    printWindow.document.write('.total-row { font-weight: bold; font-size: 18px; border-top: 2px solid #333 !important; }');
+    printWindow.document.write('.status-paid { color: #27ae60; font-weight: bold; }');
+    printWindow.document.write('.footer { margin-top: 40px; text-align: center; font-size: 13px; color: #777; border-top: 1px solid #eee; padding-top: 20px; }');
+    printWindow.document.write('</style></head><body>');
+    
+    printWindow.document.write('<div class="receipt-box">');
+    printWindow.document.write('<div class="header"><h2>RESICARE SOCIETY</h2><p>Maintenance Receipt - February 2026</p></div>');
+    
+    printWindow.document.write('<div class="info-section">');
+    printWindow.document.write('<span><strong>Resident Name:</strong> Mallesh Bhandari</span>');
+    printWindow.document.write('<span><strong>Flat No:</strong> A-101 (Block A)</span>');
+    printWindow.document.write('<span><strong>Payment Status:</strong> <span class="status-paid">Paid</span></span>');
+    printWindow.document.write('<span><strong>Receipt Date:</strong> 2026-03-29</span>');
+    printWindow.document.write('<span><strong>Receipt ID:</strong> #RESI-' + id + '</span>');
+    printWindow.document.write('</div>');
+
+    printWindow.document.write('<table class="details-table">');
+    printWindow.document.write('<tr><td>Water Charges</td><td style="text-align:right;">₹1000.00</td></tr>');
+    printWindow.document.write('<tr><td>Electricity (Common)</td><td style="text-align:right;">₹1500.00</td></tr>');
+    printWindow.document.write('<tr><td>Security & Cleaning</td><td style="text-align:right;">₹1000.00</td></tr>');
+    printWindow.document.write('<tr><td>Other Maintenance</td><td style="text-align:right;">₹1000.00</td></tr>');
+    printWindow.document.write('<tr class="total-row"><td>Total Amount Paid:</td><td style="text-align:right;">₹' + totalAmount + '</td></tr>');
+    printWindow.document.write('</table>');
+    
+    printWindow.document.write('<div class="footer"><p>Thank you for being a responsible resident!</p><p>This is a computer-generated receipt and requires no signature.</p></div>');
+    printWindow.document.write('</div>');
+    
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    
+    setTimeout(function() {
+        printWindow.print();
+    }, 500);
+}
+</script>
+
+</body>
+</html>

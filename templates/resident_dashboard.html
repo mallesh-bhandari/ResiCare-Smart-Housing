@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Dashboard | ResiCare</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-green: #10b981;
+            --secondary-green: #059669;
+            --bg-body: #f0fdf4;
+            --text-dark: #064e3b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-body); display: flex; color: #1f2937; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar { 
+            width: 260px; background: linear-gradient(180deg, #10b981 0%, #059669 100%); 
+            min-height: 100vh; color: white; position: fixed; 
+        }
+        .sidebar-header { padding: 30px 25px; font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 12px; }
+        .nav-item { 
+            padding: 14px 25px; display: flex; align-items: center; gap: 12px;
+            color: rgba(255, 255, 255, 0.9); text-decoration: none; transition: 0.3s; font-size: 14px;
+        }
+        .nav-item:hover, .active-nav { background: rgba(255, 255, 255, 0.2); border-radius: 0 50px 50px 0; margin-right: 10px; }
+
+        /* Main Content */
+        .content { flex: 1; margin-left: 260px; padding-bottom: 40px; }
+        
+        /* Notice Ticker */
+        .notice-bar {
+            background: white; margin: 20px 40px; padding: 12px 25px; border-radius: 15px;
+            display: flex; align-items: center; gap: 15px; border-left: 6px solid var(--primary-green);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: white; margin: 0 40px 25px; padding: 35px; border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.08);
+        }
+
+        /* Grid Layout */
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 0 40px; }
+        .card { 
+            background: white; padding: 30px; border-radius: 24px; transition: 0.3s;
+            border: 1px solid #e5e7eb;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        
+        .btn {
+            display: block; padding: 12px; border-radius: 12px; text-decoration: none;
+            font-weight: 700; font-size: 14px; margin-top: 15px; text-align: center;
+        }
+        .btn-blue { background: #3b82f6; color: white; }
+        .btn-green { background: #10b981; color: white; }
+        .btn-orange { background: #f59e0b; color: white; }
+
+        /* Tables */
+        .section-box { background: white; margin: 30px 40px; padding: 30px; border-radius: 24px; border: 1px solid #e5e7eb; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { text-align: left; padding: 15px; color: #6b7280; font-size: 13px; border-bottom: 2px solid #f3f4f6; }
+        td { padding: 15px; border-bottom: 1px solid #f3f4f6; font-size: 14px; }
+
+        /* Info Cards */
+        .info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 0 40px; }
+        .mini-card { 
+            background: white; padding: 20px; border-radius: 20px; display: flex; align-items: center; 
+            gap: 15px; border: 1px solid #e5e7eb; text-decoration: none; color: inherit; transition: 0.3s;
+        }
+        .mini-card:hover { border-color: var(--primary-green); background: #f9fafb; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header"><i class="fa fa-house-chimney"></i> ResiCare</div>
+        <a href="#" class="nav-item active-nav"><i class="fa fa-gauge"></i> Dashboard</a>
+        <a href="/my_profile" class="nav-item"><i class="fa fa-user"></i> My Profile</a>
+        <a href="/my_bills" class="nav-item"><i class="fa fa-file-invoice-dollar"></i> My Bills</a>
+        <a href="/my_complaints" class="nav-item"><i class="fa fa-circle-exclamation"></i> Complaints</a>
+        <a href="/logout" class="nav-item" style="margin-top: 50px;"><i class="fa fa-power-off"></i> Logout</a>
+    </div>
+
+    <div class="content">
+        <div class="notice-bar">
+            <i class="fa fa-bullhorn" style="color: var(--primary-green);"></i>
+            <marquee style="font-weight: 600; color: #065f46;">
+                📢 Notice: The lift will be closed for maintenance on Sunday, April 19, between 5:00 PM and 8:00 PM. Please plan your commute accordingly. Thank you!| Society Office closed on 3rd April (Good Friday).
+            </marquee>
+        </div>
+
+        <div class="welcome-banner">
+            <h1 style="color: var(--text-dark); font-size: 28px;">Welcome, Mallesh Bhandari!</h1>
+            <p style="color: #6b7280; margin-top: 8px;">
+                <i class="fa fa-location-dot" style="color: var(--primary-green);"></i> Flat Number: <b>A-101</b> | Pune Society
+            </p>
+        </div>
+
+        <div class="grid-container">
+            <div class="card">
+                <h3 style="font-size: 18px;"><i class="fa fa-id-card" style="color: #3b82f6;"></i> Quick Profile</h3>
+                <p style="font-size: 13px; color: #6b7280; margin-top: 5px;">View and manage your personal information.</p>
+                <a href="/my_profile" class="btn btn-blue">Edit Profile</a>
+            </div>
+
+            <div class="card">
+                <h3 style="font-size: 18px;"><i class="fa fa-wallet" style="color: #10b981;"></i> Billing & Dues</h3>
+                <p style="font-size: 13px; color: #059669; font-weight: 600; margin-top: 5px;">Great! Your maintenance is up to date.</p>
+                <a href="/my_bills" class="btn btn-green">View All Bills</a>
+            </div>
+
+            <div class="card">
+                <h3 style="font-size: 18px;"><i class="fa fa-screwdriver-wrench" style="color: #f59e0b;"></i> Service Requests</h3>
+                <p style="font-size: 13px; color: #6b7280; margin-top: 5px;">Need help with repairs? File a request.</p>
+                <a href="/my_complaints" class="btn btn-orange">Raise Complaint</a>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 style="font-size: 18px; color: var(--text-dark);"><i class="fa fa-user-clock"></i> Recent Visitors</h2>
+            <table>
+                <thead>
+                    <tr><th>Visitor Name</th><th>Purpose</th><th>Entry Time</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><b>Rahul Sharma</b></td><td>Delivery (Amazon)</td><td>30-03 | 02:45 PM</td><td><span style="color: #059669; font-weight: 700;">Verified</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-row">
+            <a href="/view_events" class="mini-card">
+                <i class="fa fa-calendar-check" style="font-size: 24px; color: #8b5cf6;"></i>
+                <div>
+                    <h4 style="font-size: 15px;">Upcoming Events</h4>
+                    <p style="font-size: 12px; color: #6b7280;">Check society calendar and meetings.</p>
+                </div>
+            </a>
+            <div class="mini-card">
+                <i class="fa fa-phone-volume" style="font-size: 24px; color: #ef4444;"></i>
+                <div>
+                    <h4 style="font-size: 15px;">Help & Support</h4>
+                    <p style="font-size: 12px; color: #6b7280;">Security Gate: +91 98765 43210</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # 1. Database Service (Jo XAMPP ka kaam karegi)
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "my_society_db"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./my_society_db.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # 2. Flask Web Application Service
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    restart: always
+    depends_on:
+      - db
+
+volumes:
+  db_data:

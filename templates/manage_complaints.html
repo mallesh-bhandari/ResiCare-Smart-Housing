@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Complaints | ResiCare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --pending: #e74c3c; --progress: #f39c12; --resolved: #27ae60; --blue-bg: #1e3c72; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, var(--blue-bg) 0%, #2a5298 100%);
+            margin: 0; padding: 30px; min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-top: 5px solid #3c8dbc;
+            overflow: hidden;
+        }
+        .card-header { padding: 20px 25px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: white; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8f9fa; padding: 18px 20px; text-align: left; font-size: 12px; text-transform: uppercase; color: #777; border-bottom: 2px solid #dee2e6; }
+        td { padding: 15px 20px; border-bottom: 1px solid #f1f1f1; font-size: 14px; vertical-align: middle; }
+        
+        .status-badge {
+            padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; color: white; text-transform: uppercase;
+        }
+        .pending { background: var(--pending); }
+        .progress { background: var(--progress); }
+        .resolved { background: var(--resolved); }
+
+        .cat-icon { width: 35px; height: 35px; border-radius: 50%; background: #f0f0f0; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; color: #555; }
+        
+        .action-btn {
+            padding: 6px 10px; border-radius: 4px; text-decoration: none; font-size: 11px; font-weight: bold; border: 1px solid #ddd; color: #555; transition: 0.3s;
+        }
+        .action-btn:hover { background: #eee; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3 style="margin:0;"><i class="fa fa-exclamation-circle"></i> Resident Complaints</h3>
+            <span style="font-size: 13px; color: #888;">Total Complaints: {{ complaints|length }}</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Resident / Flat</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date Reported</th>
+                    <th>Status</th>
+                    <th style="text-align: center;">Update Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comp in complaints %}
+                <tr>
+                    <td>
+                        <div style="font-weight:700;">{{ comp.resident_name }}</div>
+                        <div style="font-size:12px; color:#3c8dbc;">Flat: {{ comp.flat_no }}</div>
+                    </td>
+                    <td>
+                        <div class="cat-icon">
+                            {% if comp.category == 'Plumbing' %}<i class="fa fa-faucet"></i>
+                            {% elif comp.category == 'Electricity' %}<i class="fa fa-bolt"></i>
+                            {% elif comp.category == 'Lift' %}<i class="fa fa-elevator"></i>
+                            {% else %}<i class="fa fa-wrench"></i>{% endif %}
+                        </div>
+                        <strong>{{ comp.category }}</strong>
+                    </td>
+                    <td style="max-width: 250px; color: #666;">{{ comp.description }}</td>
+                    <td>{{ comp.date_reported }}</td>
+                    <td>
+                        <span class="status-badge {% if comp.status == 'Pending' %}pending{% elif comp.status == 'In Progress' %}progress{% else %}resolved{% endif %}">
+                            {{ comp.status }}
+                        </span>
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="/update_complaint/{{ comp.id }}/In Progress" class="action-btn" title="Mark In Progress"><i class="fa fa-spinner"></i></a>
+                        <a href="/update_complaint/{{ comp.id }}/Resolved" class="action-btn" style="color:var(--resolved);" title="Mark Resolved"><i class="fa fa-check"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

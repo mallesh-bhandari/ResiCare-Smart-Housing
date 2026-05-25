@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resident Profile | SMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Source Sans Pro', sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); display: flex; justify-content: center; padding-top: 50px; min-height: 100vh; margin: 0; }
+        .card { background: white; width: 400px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); overflow: hidden; text-align: center; }
+        .header { background: #f39c12; color: white; padding: 30px; }
+        .header i { font-size: 50px; }
+        .details { padding: 20px; text-align: left; }
+        .row { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
+        .label { font-weight: bold; color: #555; }
+        .btn-back { display: block; background: #333; color: white; text-decoration: none; padding: 10px; margin-top: 15px; border-radius: 5px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <i class="fa fa-user-circle"></i>
+            <h2>{{ res.resident_name }}</h2>
+        </div>
+        <div class="details">
+            <div class="row"><span class="label">Flat No:</span> <span>{{ res.flat_no }}</span></div>
+            <div class="row"><span class="label">Block:</span> <span>{{ res.block }}</span></div>
+            <div class="row"><span class="label">Contact:</span> <span>{{ res.contact_no }}</span></div>
+            <div class="row"><span class="label">Date:</span> <span>{{ res.allotment_date }}</span></div>
+            <a href="/manage_allotment" class="btn-back">Back to List</a>
+        </div>
+    </div>
+</body>
+</html>

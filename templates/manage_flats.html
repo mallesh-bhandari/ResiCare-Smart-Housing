@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Flats | SMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #3c8dbc;
+            --success: #00a65a;
+            --danger: #dd4b39;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            /* Naya Modern Gradient Background */
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 30px;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Professional Card Style */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 5px solid var(--primary);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        /* Modern Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f1f1f1;
+            font-size: 15px;
+            color: #444;
+        }
+
+        tr:hover {
+            background-color: #f1f7ff;
+            transition: 0.3s;
+        }
+
+        /* Badges for Flat Type */
+        .badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .bg-1bhk { background: #605ca8; }
+        .bg-2bhk { background: var(--success); }
+        .bg-3bhk { background: #f39c12; }
+
+        /* Action Buttons */
+        .btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-edit {
+            background: white;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+        }
+
+        .btn-edit:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .btn-delete {
+            background: white;
+            color: var(--danger);
+            border: 1.5px solid var(--danger);
+        }
+
+        .btn-delete:hover {
+            background: var(--danger);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .block-label {
+            font-weight: 700;
+            color: #2a5298;
+            background: #e8f0fe;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1e3ff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><i class="fa fa-building-user"></i> Society Flats Inventory</div>
+            <div style="text-align: right;">
+                <span style="background: #333; color: white; padding: 4px 10px; border-radius: 4px; font-size: 11px;">
+                    Total Records: {{ flats|length }}
+                </span>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Flat Number</th>
+                    <th>Floor No.</th>
+                    <th>Block Name</th>
+                    <th>Category</th>
+                    <th style="text-align: center;">Management</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for flat in flats %}
+                <tr>
+                    <td><span style="color: #888;">#{{ flat.id }}</span></td>
+                    <td style="font-weight: 700; color: #1e3c72;">{{ flat.flat_no }}</td>
+                    <td><i class="fa fa-layer-group" style="color: #aaa; margin-right: 5px;"></i> {{ flat.floor }}<sup>th</sup> Floor</td>
+                    <td><span class="block-label">{{ flat.block }} Block</span></td>
+                    <td>
+                        <span class="badge {% if flat.type == '1BHK' %}bg-1bhk{% elif flat.type == '2BHK' %}bg-2bhk{% else %}bg-3bhk{% endif %}">
+                            {{ flat.type }}
+                        </span>
+                    </td>
+                    <td style="text-align: center;">
+                        <a href="/edit_flat/{{ flat.id }}" class="btn btn-edit"><i class="fa fa-pen-to-square"></i> EDIT</a>
+                        <a href="#" class="btn btn-delete" onclick="return confirm('Kya aap sach mein ye flat delete karna chahte hain?')">
+                            <i class="fa fa-trash-can"></i> DELETE
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

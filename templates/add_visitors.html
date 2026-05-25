@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Visitor | ResiCare</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-purple: #6366f1;
+            --secondary-purple: #a855f7;
+            --bg-light: #f5f3ff;
+            --text-dark: #1e1b4b;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: linear-gradient(135deg, #f5f3ff 0%, #e0e7ff 100%); 
+            margin: 0; 
+            padding: 40px 20px; 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-box { 
+            background: white; 
+            max-width: 500px; 
+            width: 100%;
+            margin: auto; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1); 
+            padding: 40px; 
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        /* Top Accent Bar */
+        .form-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 8px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-purple));
+            border-radius: 24px 24px 0 0;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 { 
+            color: var(--text-dark); 
+            font-size: 24px; 
+            font-weight: 800;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .form-header h2 i {
+            color: var(--primary-purple);
+        }
+
+        .form-header p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            transition: 0.3s;
+        }
+
+        input, textarea { 
+            width: 100%; 
+            padding: 12px 15px 12px 45px; 
+            border: 2px solid #f3f4f6; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+        }
+
+        textarea {
+            padding-left: 15px; /* Textarea mein icon nahi rakhte clean look ke liye */
+        }
+
+        input:focus, textarea:focus { 
+            outline: none; 
+            border-color: var(--primary-purple); 
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        input:focus + i {
+            color: var(--primary-purple);
+        }
+
+        .btn-visitor { 
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-purple)); 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-weight: 700; 
+            font-size: 16px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-visitor:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -5px rgba(99, 102, 241, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: var(--primary-purple);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-box">
+        <div class="form-header">
+            <h2><i class="fa fa-user-shield"></i> Visitor Entry</h2>
+            <p>Log a new visitor into the society register</p>
+        </div>
+
+        <form action="/add_visitors" method="POST">
+            <div class="form-group">
+                <label>Visitor Name</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-user"></i>
+                    <input type="text" name="visitor_name" placeholder="Enter visitor's full name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Contact Number</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-phone"></i>
+                    <input type="text" name="contact_no" placeholder="Mobile Number" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Whom to Meet</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-handshake"></i>
+                    <input type="text" name="whom_to_meet" placeholder="Resident Name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Flat Number</label>
+                <div class="input-wrapper">
+                    <i class="fa fa-building"></i>
+                    <input type="text" name="flat_no" placeholder="e.g. A-101" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Reason for Visit</label>
+                <textarea name="reason" rows="3" placeholder="Delivery, Guest, Maintenance etc."></textarea>
+            </div>
+
+            <button type="submit" class="btn-visitor">LOG ENTRY</button>
+        </form>
+
+        <a href="/dashboard" class="back-link"><i class="fa fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

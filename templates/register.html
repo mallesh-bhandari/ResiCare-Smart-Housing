@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resident Registration | ResiCare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+            height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0;
+        }
+        .register-card {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); width: 100%; max-width: 400px; text-align: center;
+        }
+        h2 { color: #27ae60; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; position: relative; }
+        .input-group i { position: absolute; left: 15px; top: 14px; color: #aaa; }
+        input {
+            width: 100%; padding: 12px 12px 12px 45px; border: 2px solid #eee;
+            border-radius: 10px; box-sizing: border-box; font-size: 14px;
+        }
+        .btn-reg {
+            width: 100%; padding: 14px; background: #27ae60; color: white;
+            border: none; border-radius: 10px; cursor: pointer; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-card">
+    <h2><i class="fa fa-user-plus"></i> New Registration</h2>
+    <form action="/register" method="POST">
+        <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-building"></i>
+            <input type="text" name="flat_no" placeholder="Flat Number (e.g. A-101)" required>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-phone"></i>
+            <input type="text" name="mobile_no" placeholder="Mobile Number" required>
+        </div>
+        <button type="submit" class="btn-reg">CREATE ACCOUNT</button>
+    </form>
+    <p style="margin-top: 20px; font-size: 14px;">
+        Already registered? <a href="/resident_login" style="color: #27ae60; text-decoration: none; font-weight: 600;">Login here</a>
+    </p>
+</div>
+
+</body>
+</html>

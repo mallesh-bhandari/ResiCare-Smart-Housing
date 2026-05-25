@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Society Analysis Report | ResiCare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --primary-text: #2c3e50;
+            --accent-blue: #007bff;
+            --success-green: #2ecc71;
+            --danger-red: #e74c3c;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            /* Yahan background change kiya hai */
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .report-container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: var(--card-bg); 
+            padding: 50px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .report-header { 
+            text-align: center; 
+            border-bottom: 2px solid #ddd; 
+            margin-bottom: 40px; 
+            padding-bottom: 20px; 
+        }
+        
+        .report-header h1 { 
+            color: #1e3c72; 
+            margin: 0; 
+            font-size: 32px;
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+        }
+
+        /* Stats Cards - Modern Style */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 45px; }
+        
+        .stat-card { 
+            padding: 25px; 
+            border-radius: 12px; 
+            color: white; 
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card:hover { transform: translateY(-5px); }
+        
+        .bg-money { background: linear-gradient(45deg, #11998e, #38ef7d); }
+        .bg-res { background: linear-gradient(45deg, #1e3c72, #2a5298); }
+        .bg-comp { background: linear-gradient(45deg, #eb3349, #f45c43); }
+
+        .stat-card h2 { margin: 10px 0; font-size: 30px; font-weight: 700; }
+        .stat-card span { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Tables */
+        .section-title { 
+            color: #1e3c72; 
+            border-left: 6px solid #1e3c72; 
+            padding-left: 15px; 
+            margin-bottom: 20px; 
+            font-size: 20px; 
+            font-weight: 700;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 40px; background: white; border-radius: 8px; overflow: hidden; }
+        th { background: #f1f4f9; padding: 15px; text-align: left; color: #555; border-bottom: 2px solid #dee2e6; font-size: 14px; }
+        td { padding: 15px; border-bottom: 1px solid #eee; color: #333; font-size: 15px; }
+        
+        tr:hover { background-color: #f9fbff; }
+
+        .btn-print { 
+            background: #1e3c72; 
+            color: white; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            float: right; 
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        @media print { .btn-print, .no-print { display: none; } body { background: white; padding: 0; } .report-container { box-shadow: none; border: none; } }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <button class="btn-print" onclick="window.print()"><i class="fa fa-print"></i> DOWNLOAD REPORT</button>
+    
+    <div class="report-header">
+        <h1 id="logo">RESI-CARE ANALYSIS</h1>
+        <p>Smart Housing Management System | Pune Branch</p>
+        <p style="font-size: 13px; color: #666;">Generated: 29 March 2026 | Admin: Mallesh Bhandari</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card bg-money">
+            <span>Total Collection</span>
+            <h2>₹{{ money }}</h2>
+        </div>
+        <div class="stat-card bg-res">
+            <span>Total Residents</span>
+            <h2>{{ residents }}</h2>
+        </div>
+        <div class="stat-card bg-comp">
+            <span>Total Complaints</span>
+            <h2>{{ complaints|length }}</h2>
+        </div>
+    </div>
+
+    <div class="section-title">Latest Visitor Entries</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Visitor Name</th>
+                <th>Reason/Purpose</th>
+                <th>In Time</th>
+                <th>Current Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in visitors %}
+            <tr>
+                <td><strong>{{ v.visitor_name }}</strong></td>
+                <td>{{ v.reason }}</td>
+                <td>{{ v.entry_time }}</td>
+                <td>
+                    <span style="color: {% if v.status == 'In' %}#e74c3c{% else %}#27ae60{% endif %}; font-weight: bold;">
+                        {{ v.status }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="section-title">Complaint Statistics by Status</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Current Status</th>
+                <th>Count</th>
+                <th>Action Priority</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in complaints %}
+            <tr>
+                <td><strong>{{ stat.status }}</strong></td>
+                <td>{{ stat.count }}</td>
+                <td>
+                    {% if stat.status == 'Pending' %} High 
+                    {% elif stat.status == 'In Progress' %} Medium 
+                    {% else %} Low {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align: center; margin-top: 40px; color: #888; font-size: 13px; border-top: 1px solid #eee; padding-top: 20px;">
+        <i class="fa fa-info-circle"></i> This report is confidential and intended for ResiCare management use only.
+    </div>
+</div>
+
+</body>
+</html>

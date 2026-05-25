@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Flat | SMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Source Sans Pro', sans-serif; background: #f4f6f9; padding: 50px; }
+        .edit-card { background: white; max-width: 450px; margin: 0 auto; padding: 25px; border-radius: 8px; border-top: 4px solid #3c8dbc; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .btn-update { background: #3c8dbc; color: white; border: none; padding: 12px; width: 100%; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="edit-card">
+        <h3><i class="fa fa-edit"></i> Edit Flat Details</h3>
+        <form method="POST">
+            <label>Flat Number</label>
+            <input type="text" name="flat_no" value="{{ flat.flat_no }}" required>
+            
+            <label>Floor</label>
+            <input type="number" name="floor" value="{{ flat.floor }}" required>
+            
+            <label>Block</label>
+            <input type="text" name="block" value="{{ flat.block }}" required>
+            
+            <label>Flat Type</label>
+            <select name="flat_type">
+                <option value="1BHK" {% if flat.type == '1BHK' %}selected{% endif %}>1BHK</option>
+                <option value="2BHK" {% if flat.type == '2BHK' %}selected{% endif %}>2BHK</option>
+                <option value="3BHK" {% if flat.type == '3BHK' %}selected{% endif %}>3BHK</option>
+            </select>
+            
+            <button type="submit" class="btn-update">UPDATE FLAT</button>
+            <a href="/manage_flats" style="display:block; text-align:center; margin-top:10px; color:#666; font-size:13px; text-decoration:none;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

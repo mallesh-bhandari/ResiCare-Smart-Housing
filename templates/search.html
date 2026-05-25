@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search | SMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Source Sans Pro', sans-serif; background-color: #ecf0f5; margin: 0; padding: 20px; }
+        .search-container { max-width: 800px; margin: 0 auto; }
+        .search-box { background: white; padding: 20px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        .btn-search { background: #3c8dbc; color: white; border: none; padding: 0 25px; border-radius: 4px; cursor: pointer; }
+        
+        .results-box { background: white; margin-top: 20px; border-top: 3px solid #3c8dbc; padding: 15px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; background: #f9f9f9; padding: 12px; border-bottom: 2px solid #ddd; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; }
+        .no-result { text-align: center; color: #888; padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h2 style="font-weight: 400;"><i class="fa fa-search"></i> Global Search</h2>
+        
+        <form action="/search" method="POST" class="search-box">
+            <input type="text" name="query" value="{{ query }}" placeholder="Search by Flat Number or Resident Name..." required>
+            <button type="submit" class="btn-search"><i class="fa fa-search"></i> SEARCH</button>
+        </form>
+
+        {% if query %}
+        <div class="results-box">
+            <h4>Results for "{{ query }}"</h4>
+            {% if results %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flat No</th>
+                        <th>Resident</th>
+                        <th>Block/Floor</th>
+                        <th>Type</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in results %}
+                    <tr>
+                        <td><strong>{{ row.flat_no }}</strong></td>
+                        <td>{{ row.resident_name }}</td>
+                        <td>{{ row.block }} / {{ row.floor }}</td>
+                        <td>{{ row.type }}</td>
+                        <td>{{ row.contact_no }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="no-result">No residents found matching your search.</div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

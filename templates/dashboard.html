@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | RESI-CARE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Vibrant Purple Theme */
+            --sidebar-bg: #6366f1; /* Indigo-Purple */
+            --sidebar-hover: #4f46e5;
+            --bg-body: #f5f3ff; /* Very light purple tint */
+            --accent: #8b5cf6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-body); display: flex; color: #1e1b4b; }
+
+        /* Sidebar Section */
+        .sidebar { 
+            width: 260px; 
+            background: linear-gradient(180deg, #6366f1 0%, #a855f7 100%); 
+            min-height: 100vh; 
+            color: #ffffff; 
+            position: fixed; 
+            transition: 0.3s;
+            box-shadow: 4px 0 20px rgba(99, 102, 241, 0.2);
+        }
+        
+        .sidebar-header { 
+            padding: 30px 25px; 
+            font-size: 24px; 
+            font-weight: 800; 
+            color: white; 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-label { 
+            padding: 20px 25px 10px; 
+            font-size: 11px; 
+            color: rgba(255, 255, 255, 0.7); 
+            text-transform: uppercase; 
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-item { 
+            padding: 14px 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: rgba(255, 255, 255, 0.9); 
+            text-decoration: none; 
+            transition: 0.3s; 
+            cursor: pointer; 
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .nav-item:hover { background: var(--sidebar-hover); color: white; border-radius: 0 50px 50px 0; margin-right: 10px; }
+        .nav-item i.main-icon { width: 22px; font-size: 18px; }
+
+        .sub-menu { display: none; background: rgba(0, 0, 0, 0.1); list-style: none; padding: 5px 0; }
+        .sub-menu a { display: block; padding: 10px 25px 10px 60px; color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 13px; transition: 0.2s; }
+        .sub-menu a:hover { color: white; }
+
+        /* Content Section */
+        .content { flex: 1; margin-left: 260px; padding-bottom: 50px; }
+        
+        .top-bar { 
+            background: white;
+            padding: 15px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .dashboard-header { padding: 40px 40px 25px; }
+        .dashboard-header h1 { font-size: 28px; font-weight: 700; color: #1e1b4b; }
+
+        /* Info Cards */
+        .cards-container { 
+            padding: 0 40px; 
+            display: grid; 
+            /* Updated to fit 5 cards in one line */
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 20px; 
+        }
+
+        .info-box { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            border: 1px solid #f3f4f6;
+        }
+        
+        .info-box:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 30px -10px rgba(99, 102, 241, 0.2); 
+        }
+
+        .info-box-title { color: #6b7280; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+        .info-box-number { font-size: 28px; font-weight: 800; color: #1e1b4b; }
+
+        .icon-box {
+            float: right;
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+
+        /* Purple-Themed Icons */
+        .ic-1 { background: #f5f3ff; color: #8b5cf6; }
+        .ic-2 { background: #fdf2f8; color: #ec4899; }
+        .ic-3 { background: #eff6ff; color: #3b82f6; }
+        .ic-4 { background: #fff7ed; color: #f59e0b; }
+        /* New Complaint Icon Theme */
+        .ic-5 { background: #fff1f2; color: #f43f5e; }
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header"><i class="fa fa-gem"></i> RESI-CARE</div>
+        
+        <div class="menu-label">Analytics</div>
+        <a href="/dashboard" class="nav-item" style="background: var(--sidebar-hover); border-radius: 0 50px 50px 0; margin-right: 10px;">
+            <span><i class="fa fa-chart-line main-icon"></i> Dashboard</span>
+        </a>
+
+        <div class="menu-label">Management</div>
+        
+        <div class="nav-item dropdown-btn">
+            <span><i class="fa fa-building-user main-icon"></i> Flats</span>
+            <i class="fa fa-chevron-right" style="font-size: 10px;"></i>
+        </div>
+        <ul class="sub-menu">
+            <li><a href="/add_flats">Add New Flat</a></li>
+            <li><a href="/manage_flats">Manage Flats</a></li>
+        </ul>
+
+        <div class="nav-item dropdown-btn">
+            <span><i class="fa fa-key main-icon"></i> Allotment</span>
+            <i class="fa fa-chevron-right" style="font-size: 10px;"></i>
+        </div>
+        <ul class="sub-menu">
+            <li><a href="/add_allotment">Add Allotment</a></li>
+            <li><a href="/manage_allotment">Manage Allotment</a></li>
+        </ul>
+
+        <div class="nav-item dropdown-btn">
+            <span><i class="fa fa-file-invoice main-icon"></i> Bills</span>
+            <i class="fa fa-chevron-right" style="font-size: 10px;"></i>
+        </div>
+        <ul class="sub-menu">
+            <li><a href="/add_bills">Generate Bill</a></li>
+            <li><a href="/manage_bills">Billing History</a></li>
+        </ul>
+
+        <div class="nav-item dropdown-btn">
+            <span><i class="fa fa-circle-exclamation main-icon"></i> Complaints</span>
+            <i class="fa fa-chevron-right" style="font-size: 10px;"></i>
+        </div>
+        <ul class="sub-menu">
+            <li><a href="/manage_complaints">Pending Issues</a></li>
+        </ul>
+
+        <div class="nav-item dropdown-btn">
+            <span><i class="fa fa-user-clock main-icon"></i> Visitors</span>
+            <i class="fa fa-chevron-right" style="font-size: 10px;"></i>
+        </div>
+        <ul class="sub-menu">
+            <li><a href="/add_visitors">New Entry</a></li>
+            <li><a href="/manage_visitors">Logs</a></li>
+        </ul>
+
+        <a href="/logout" class="nav-item" style="margin-top: 40px; color: #ffbbbb;">
+            <span><i class="fa fa-power-off main-icon"></i> Sign Out</span>
+        </a>
+    </div>
+
+    <div class="content">
+        <div class="top-bar">
+            <i class="fa fa-bars-staggered" style="cursor: pointer; color: #6366f1; font-size: 20px;"></i>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="text-align: right;">
+                    <p style="font-size: 13px; font-weight: 700; color: #1e1b4b;">Mallesh Bhandari</p>
+                    <p style="font-size: 11px; color: #6366f1; font-weight: 600;">ADMIN</p>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Mallesh&background=6366f1&color=fff" style="width: 42px; border-radius: 14px; border: 2px solid #eef2ff;">
+            </div>
+        </div>
+
+        <div class="dashboard-header">
+            <h1>Society Overview</h1>
+            <p style="color: #6b7280; font-size: 14px; margin-top: 5px;">All Cards </p>
+        </div>
+
+        <div class="cards-container">
+            <div class="info-box">
+                <div class="icon-box ic-1"><i class="fa fa-building"></i></div>
+                <div class="info-box-title">Total Flats</div>
+                <span class="info-box-number">50</span>
+            </div>
+
+            <div class="info-box">
+                <div class="icon-box ic-2"><i class="fa fa-receipt"></i></div>
+                <div class="info-box-title">Total Bills</div>
+                <span class="info-box-number">50</span>
+            </div>
+
+            <div class="info-box">
+                <div class="icon-box ic-3"><i class="fa fa-id-badge"></i></div>
+                <div class="info-box-title">Total Allotment</div>
+                <span class="info-box-number">50</span>
+            </div>
+
+            <div class="info-box">
+                <div class="icon-box ic-4"><i class="fa fa-users"></i></div>
+                <div class="info-box-title">Total Visitors</div>
+                <span class="info-box-number">34</span>
+            </div>
+
+            <div class="info-box">
+                <div class="icon-box ic-5"><i class="fa fa-triangle-exclamation"></i></div>
+                <div class="info-box-title">Total Complaints</div>
+                <span class="info-box-number">11</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        for (var i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var arrow = this.querySelector(".fa-chevron-right");
+                var dropdownContent = this.nextElementSibling;
+                
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                    arrow.style.transform = "rotate(0deg)";
+                } else {
+                    dropdownContent.style.display = "block";
+                    arrow.style.transform = "rotate(90deg)";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

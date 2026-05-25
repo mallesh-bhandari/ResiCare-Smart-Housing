@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Society Management | Home</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Navbar Styling - Clean White */
+        .navbar {
+            background: #ffffff;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #2c3e50;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 15px;
+        }
+
+        /* Professional Buttons */
+        .nav-btn {
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Home Button - Now Functional */
+        .btn-home {
+            background: transparent;
+            color: #7f8c8d;
+            border: 1px solid #dcdde1;
+        }
+        .btn-home:hover {
+            background: #f1f2f6;
+            color: #2f3640;
+        }
+
+        .btn-admin {
+            background: transparent;
+            color: #3498db;
+            border: 2px solid #3498db;
+        }
+        .btn-admin:hover {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-resident {
+            background: #27ae60;
+            color: white;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);
+        }
+        .btn-resident:hover {
+            background: #219150;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Hero Section */
+        .jumbotron {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("/static/images/home_bg.jpg?v=2");
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* Cards Styling */
+        .card-container {
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: -50px;
+        }
+
+        .card {
+            background: white;
+            width: 280px;
+            padding: 40px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover { transform: translateY(-10px); }
+
+        /* Professional Dark Footer */
+        .footer {
+            background: #1e272e;
+            color: #ecf0f1;
+            padding: 70px 0 30px;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 3px;
+            background: #27ae60;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li { margin-bottom: 12px; }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover { color: #27ae60; padding-left: 5px; }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">RESI-CARE</div>
+
+    <ul class="navbar-nav">
+        <li><a href="/" class="nav-btn btn-home"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="/login" class="nav-btn btn-admin"><i class="fa fa-user-shield"></i> Admin</a></li>
+        <li><a href="/resident_login" class="nav-btn btn-resident"><i class="fa fa-user"></i> Resident</a></li>
+    </ul>
+</nav>
+
+<div class="jumbotron">
+    <h1 style="font-size: 50px; margin-bottom: 15px;">Experience Smart Living</h1>
+    <p style="font-size: 20px; opacity: 0.9;">Modernize your society management with Resi-Care.</p>
+    <button onclick="location.href='/resident_login'" 
+            style="padding: 15px 40px; background: #27ae60; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 16px;">
+        Get Started Now
+    </button>
+</div>
+
+<div class="card-container">
+    <div class="card">
+        <i class="fa fa-id-badge" style="font-size: 40px; color: #3498db; margin-bottom: 20px;"></i>
+        <h3>Visitor Log</h3>
+        <p>Digital tracking for every person entering your gates.</p>
+    </div>
+    <div class="card">
+        <i class="fa fa-credit-card" style="font-size: 40px; color: #27ae60; margin-bottom: 20px;"></i>
+        <h3>Easy Payments</h3>
+        <p>Pay maintenance bills and download receipts in one click.</p>
+    </div>
+    <div class="card">
+        <i class="fa fa-bullhorn" style="font-size: 40px; color: #e67e22; margin-bottom: 20px;"></i>
+        <h3>Quick Help</h3>
+        <p>Direct communication with admin for all your complaints.</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>RESI-CARE</h3>
+            <p>Smart solution for managing housing societies efficiently.</p>
+        </div>
+
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="/"><i class="fa fa-chevron-right" style="font-size: 10px;"></i> Home</a></li>
+                <li><a href="/login"><i class="fa fa-chevron-right" style="font-size: 10px;"></i> Admin</a></li>
+                <li><a href="/resident_login"><i class="fa fa-chevron-right" style="font-size: 10px;"></i> Resident</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><i class="fa fa-envelope" style="color: #27ae60;"></i> support@resicare.com</p>
+            <p><i class="fa fa-map-marker-alt" style="color: #27ae60;"></i> Pune, Maharashtra</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2026 Resi-Care | Built for Smart Living
+    </div>
+</footer>
+
+</body>
+</html>
